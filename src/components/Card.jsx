@@ -1,18 +1,24 @@
 import React from "react";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 
-export const Cards =(name,type,onhandel)=>{
+import {Card,Col,Button} from "react-bootstrap";
+import './style.css'
+import {logo} from "./logo.png"
+import 'bootstrap/dist/css/bootstrap.css';
+
+export const Cards =(name,type,onhandel,img,detail)=>{
 return(
-<Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="" />
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>
-          {type}
-        </Card.Text>
-        <Button variant="primary" onClick={onhandel}>read more</Button>
-      </Card.Body>
-    </Card>
+  <>
+  <Col className="containere">
+        <Card style={{ width: '18rem',backgroundColor:'rgb(155, 199, 237);' }}>
+  <Card.Img  src= {img} className="box"/>
+    <Card.Body className="card-text">
+      <Card.Title>Species name:</Card.Title>
+      <Card.Text>harvest type:</Card.Text>
+      <Card.Text className="card-text">detail:{detail}</Card.Text>
+       <Button>Read more</Button>
+    </Card.Body>
+   </Card>
+    </Col>
+   </> 
 )
 }

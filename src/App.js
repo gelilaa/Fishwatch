@@ -1,17 +1,21 @@
-import React, {  useState ,useEffect} from "react";
+import React, {  useState ,useEffect, Fragment} from "react";
 import "./App.css";
 import {Cards}from './components/Card.jsx'
-import { Button, Form} from "react-bootstrap";
+import { Button, Form, Row,Card,Col} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 function App(){
   const [fish, setfishes] = useState([]);
   const [input, SetInput] = useState();
+  const [search ,setSearch]=useState()
 
   const onChange =async (e)=>{
      e.preventDefault()
      try {
-      const data = await fetch(`https://www.fishwatch.gov/api/species`);
+      const data = await fetch(`https://www.fishwatch.gov/api/species/${input}`);
       const dataJ = await data.json();
-       SetInput(dataJ)
+      const result = await Promise.resolve(dataJ);    
+                    setSearch(result);        
+       
      
     } catch (error) {
       console.error(error);
@@ -21,8 +25,9 @@ function App(){
     try {
       const data = await fetch(`https://www.fishwatch.gov/api/species`);
       const dataJ = await data.json();
-      console.log(dataJ.species_name);
-    setfishes (dataJ);
+       const result = await Promise.resolve (dataJ);
+        console.log(dataJ);
+                    setfishes (result);
     } catch (error) {
       console.error(error);
     }
@@ -32,21 +37,40 @@ function App(){
 },[])
 
   return (
-    <div className="App">
-      FishWatch
-      {fish.map((item, index) => {
-        return (
-          <Cards key ={index} name= {item.speciesname} type={item.type}/>
-          
-        );
-      })}
-      <Form.Control
-        placeholder="search fish here..."
-        onChange={(e) => SetInput(e.target.value)}
-      />
-      <Button onClick={onChange}>search</Button>
-      {input}
-    </div>
+    <>
+    
+      <div className="container2">
+        <Form.Control
+          placeholder="search fish here..."
+          onChange={(e) => SetInput(e.target.value)}
+        />
+        <Button onClick={onChange}>search</Button>
+      </div>
+      <Row>
+        {fish.map((item, index) => {
+          return (
+            <Fragment key={index}>
+              <Col className="containere">
+                <Card
+                  style={{
+                    width: "18rem",
+                  }}
+                >
+                  <Card.Img src="" className="box" />
+                  <Card.Body className="card-text">
+                    <Card.Title>Species name:{item.Path}</Card.Title>
+                    <Card.Text>harvest type:</Card.Text>
+                    <Card.Text className="card-text">detail:</Card.Text>
+                    <Button>Read more</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Fragment>
+          );
+        })}
+      </Row>
+      
+    </>
   );
 }
 
