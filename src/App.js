@@ -41,7 +41,7 @@ function App(){
         );
       })}
       <Form.Control
-        placeholder="Search City here..."
+        placeholder="search fish here..."
         onChange={(e) => SetInput(e.target.value)}
       />
       <Button onClick={onChange}>search</Button>
