@@ -17,9 +17,6 @@ function App(){
       console.error(error);
     }
   }
-
-  
- 
   async function allFishes() {
     try {
       const data = await fetch(`https://www.fishwatch.gov/api/species`);
@@ -39,8 +36,8 @@ function App(){
       FishWatch
       {fish.map((item, index) => {
         return (
-          //<Cards key ={index} name= {item.speciesname} type={item.type}/>
-          console.log(item.Protein)
+          <Cards key ={index} name= {item.speciesname} type={item.type}/>
+          
         );
       })}
       <Form.Control
